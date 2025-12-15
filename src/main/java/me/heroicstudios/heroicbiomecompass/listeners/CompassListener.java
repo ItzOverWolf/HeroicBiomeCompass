@@ -2,6 +2,7 @@ package me.heroicstudios.heroicbiomecompass.listeners;
 
 import me.heroicstudios.heroicbiomecompass.HeroicBiomeCompass;
 import me.heroicstudios.heroicbiomecompass.gui.BiomeFinderGUI;
+import me.heroicstudios.heroicbiomecompass.managers.ConfigManager;
 import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
@@ -80,8 +81,10 @@ public class CompassListener implements Listener {
     }
 
     private void handleBiomeSelection(Player player, String biomeName) {
-        // Check permission for specific biome
-        if (!player.hasPermission("biomecompass.biome." + biomeName.toLowerCase())) {
+        ConfigManager.BiomeMenuData menuData = plugin.getConfigManager().getBiomeMenuData(biomeName);
+
+        // Check biome-specific permission
+        if (menuData != null && menuData.getPermission() != null && !player.hasPermission(menuData.getPermission())) {
             player.sendMessage(plugin.getConfigManager().getMessage("no-biome-permission"));
             return;
         }
@@ -113,6 +116,7 @@ public class CompassListener implements Listener {
             player.sendMessage(ChatColor.RED + "Invalid biome: " + biomeName);
         }
     }
+
 
     private boolean isOnCooldown(Player player) {
         if (!cooldowns.containsKey(player.getUniqueId())) {
