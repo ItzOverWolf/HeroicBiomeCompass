@@ -150,16 +150,21 @@ biomes:
       - "&7Cost: &a{price} coins"
       - "&7A rare mushroom biome"
       - "&eClick to locate!"
-  DEEP_DARK:
-    page: 2
-    price: 2000
-    material: "SCULK"
-    name: "&8Deep Dark"
-    slot: 12
-    lore:
-      - "&7Cost: &a{price} coins"
-      - "&7A dangerous underground biome"
-      - "&eClick to locate!"
+
+
+DEEP_DARK:
+  page: 2
+  price: 2000
+  material: "SCULK"
+  name: "&8Deep Dark"
+  slot: 12
+  lore:
+    - "&7Cost: &a{price} coins"
+    - "&7A dangerous underground biome"
+    - "&eClick to locate!"
+  #permission: "biomecompass.biome.deepdark" # <- Permission required to unlock this biome. Players without this permission will see it but cannot select it.
+
+
   BADLANDS:
     page: 2
     price: 400
