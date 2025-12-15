@@ -21,8 +21,20 @@ public class BiomeCompassCommand implements CommandExecutor {
                 return true;
             }
 
-            plugin.reloadConfig();
-            sender.sendMessage(plugin.getConfigManager().getMessage("config-reloaded"));
+            try {
+                plugin.reloadConfig();
+                plugin.getConfigManager().reload();
+
+                sender.sendMessage(
+                        plugin.getConfigManager().getMessage("reload-success")
+                );
+            } catch (Exception e) {
+                sender.sendMessage(
+                        plugin.getConfigManager().getMessage("reload-failed")
+                );
+                e.printStackTrace();
+            }
+
             return true;
         }
 
