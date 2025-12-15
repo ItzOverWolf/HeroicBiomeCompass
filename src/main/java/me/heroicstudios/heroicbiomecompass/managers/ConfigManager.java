@@ -45,6 +45,7 @@ public class ConfigManager {
             List<String> lore = biomeSection.getStringList("lore");
             int slot = biomeSection.getInt("slot", -1);
             int page = biomeSection.getInt("page", 1);
+            String permission = biomeSection.getString("permission", null); // new field
 
             List<String> formattedLore = new ArrayList<>();
             for (String line : lore) {
@@ -64,12 +65,11 @@ public class ConfigManager {
                     ChatColor.translateAlternateColorCodes('&', displayName),
                     formattedLore,
                     slot,
-                    page
+                    page,
+                    permission
             );
 
             biomeMenuData.put(biomeName, menuData);
-
-            // Add to page contents
             pageContents.computeIfAbsent(page, k -> new ArrayList<>()).add(biomeName);
         }
     }
@@ -165,14 +165,16 @@ public class ConfigManager {
         private final List<String> lore;
         private final int slot;
         private final int page;
+        private final String permission; // new
 
-        public BiomeMenuData(double price, Material material, String displayName, List<String> lore, int slot, int page) {
+        public BiomeMenuData(double price, Material material, String displayName, List<String> lore, int slot, int page, String permission) {
             this.price = price;
             this.material = material;
             this.displayName = displayName;
             this.lore = lore;
             this.slot = slot;
             this.page = page;
+            this.permission = permission;
         }
 
         public double getPrice() {
@@ -197,6 +199,10 @@ public class ConfigManager {
 
         public int getPage() {
             return page;
+        }
+
+        public String getPermission() {
+            return permission;
         }
     }
 }
