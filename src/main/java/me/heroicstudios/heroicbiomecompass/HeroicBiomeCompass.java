@@ -31,7 +31,11 @@ public final class HeroicBiomeCompass extends JavaPlugin {
             return;
         }
         getServer().getPluginManager().registerEvents(new CompassListener(this), this);
-        getCommand("biomecompass").setExecutor(new BiomeCompassCommand(this));
+        if (getCommand("biomecompass") != null) {
+            getCommand("biomecompass").setExecutor(new BiomeCompassCommand(this));
+        } else {
+            getLogger().severe("Command 'biomecompass' not found in plugin.yml!");
+        }
         compassManager.registerCraftingRecipe();
         getLogger().info("HeroicBiomeCompass has been enabled!");
     }
@@ -48,7 +52,7 @@ public final class HeroicBiomeCompass extends JavaPlugin {
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
             return false;
-        }
+         }
         economy = rsp.getProvider();
         return economy != null;
     }
